@@ -6,20 +6,26 @@
 package seniorProject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Base64;
+import java.util.Base64.Decoder;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -81,7 +87,7 @@ public class desEncryption {
         
         //Generate the SecretKey, which is used for encryption.
         sKey = keyGen.generateKey();
-        
+          
         //Initialize the cipher and tell the cipher what padding to use.
         encryptCipher = Cipher.getInstance(padding);
         
@@ -98,7 +104,8 @@ public class desEncryption {
         System.err.println(e);
     }   
    }
-    public void DESDecrypt(InputStream is, OutputStream os) throws IOException{
+
+    public void DESDecrypt(InputStream is, OutputStream os) throws IOException{        
         try{
          
         decryptCipher = Cipher.getInstance(padding);    
@@ -129,6 +136,7 @@ public class desEncryption {
         is.close();
     }
     
+    
     public static String desFileCreator(){
         boolean Real = false;
         String newFPath = "";
@@ -153,9 +161,9 @@ public class desEncryption {
                         System.out.println("Set real to true.");
                         
                         //Print out to a new file below
-                        Date date = new Date();
-                        long time = date.getTime();
-                        Timestamp ts = new Timestamp(time);
+//                        Date date = new Date();
+//                        long time = date.getTime();
+//                        Timestamp ts = new Timestamp(time);
                         File encrypted = new 
                             File(dirPath+"\\DESEncrypted.txt");
                         
@@ -170,9 +178,9 @@ public class desEncryption {
                 System.out.println("Folder now exists.");
                 
                 //Print out to a new file below
-                Date date = new Date();
-                long time = date.getTime();
-                Timestamp ts = new Timestamp(time);
+//                Date date = new Date();
+//                long time = date.getTime();
+//                Timestamp ts = new Timestamp(time);
                 String fullPath = "DESEnrypted.txt";
                 
                 newFPath = dir+fullPath;
@@ -181,5 +189,59 @@ public class desEncryption {
         }
         System.out.println("Made it out.");
         return newFPath;
-    }    
+    }       
+    
+    public static String desFileCreatorDec(){
+        boolean Real = false;
+        String newFPath = "";
+        String dirPath = "";
+        File dir = new File("C:\\Users\\Trevor\\Desktop\\SPTests");
+        dir.mkdir();
+        while(!Real)
+        {
+           if(dir.exists())
+            {
+                System.out.println("Folder already exists.");
+                for(int iter = 1; iter < 100; iter++)
+                {
+                    System.out.println("Added one to the iterator.");
+                    dir = new File("C:\\Users\\Trevor\\Desktop\\SPTests\\DESDecryption"+iter);
+                    if(!dir.exists())
+                    {
+                        dir.mkdir();
+                        dirPath = dir.toString();
+                        System.out.println("Put dir path into a string.");
+                        Real = true;
+                        System.out.println("Set real to true.");
+                        
+                        //Print out to a new file below
+//                        Date date = new Date();
+//                        long time = date.getTime();
+//                        Timestamp ts = new Timestamp(time);
+                        File encrypted = new 
+                            File(dirPath+"\\DESDecrypted.txt");
+                        
+                        String encryptString = encrypted.toString();
+                        return encryptString;
+                    }
+                    System.out.println("Start New Cycle.");
+                }  
+            }
+            else
+            {
+                System.out.println("Folder now exists.");
+                
+                //Print out to a new file below
+//                Date date = new Date();
+//                long time = date.getTime();
+//                Timestamp ts = new Timestamp(time);
+                String fullPath = "DESDerypted.txt";
+                
+                newFPath = dir+fullPath;
+                break;
+            } 
+        }
+        System.out.println("Made it out.");
+        return newFPath;
+    }       
 }

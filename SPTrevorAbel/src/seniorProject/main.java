@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Scanner;
 import static seniorProject.desEncryption.desFileCreator;
+import static seniorProject.desEncryption.desFileCreatorDec;
 
 /**
  *
@@ -33,7 +34,7 @@ public class main {
     {
         
         start();
-        
+       
 //        //Creates a new folder if the previous one is already created
 //        //limitation to 100 files
 //        boolean Real = false;
@@ -121,8 +122,10 @@ public class main {
         String choice1 = "Please enter the number of which option you would "
                 + "like to do first:";
         
-        String select1 = "1) Encrypt";
-        String select2 = "2) Decrypt";
+        String select1 = "1) Encrypt (For DES and AES256 this will also decrypt"
+                + " after encrypting and entering the new file location)";
+        String select2 = "2) Decrypt (Only works for Caesarean Method due to"
+                + " the limitations of instances for DES and AES256)";
         String select3 = "3) Exit";
         
         System.out.println();
@@ -201,6 +204,7 @@ public class main {
                 filePath = retryPath.nextLine();
             }
         }
+        //only used for the encryption using the Caesarean method
         String extractedContents = bufferedReader(verifiedPath);
         
         //Main start section where the user selects the method of encryption
@@ -236,7 +240,62 @@ public class main {
             {
                 //Call DES Encryption Method here
                 //after call back to selection method
-                desEncrypt(new FileInputStream(verifiedPath));
+                //desEncrypt(new FileInputStream(verifiedPath));
+                
+                //create instance of des
+                String fileContent = "";
+                desEncryption des = new desEncryption(fileContent);
+                
+                //encryption here
+                des.DESEncrypt(new FileInputStream(verifiedPath), new FileOutputStream(desFileCreator()));
+                
+                //enter new file path here
+                String verifiedPathDec = "";
+                String filePathDec;
+                boolean validPathDec = false;
+                File fileDec;
+        
+                System.out.println(getFilePath);
+                Scanner enteredPathDec = new Scanner(System.in);
+                filePathDec = enteredPathDec.nextLine();
+        
+                /*
+                while loop will loop until the path entered by the user comes back
+                as a file that actually exists on the users computer
+                */
+                while(!validPathDec)
+                {
+                    try
+                    {
+                        fileDec = new File(filePathDec);
+                        if(fileDec.exists())
+                        {
+                            System.out.println("File Found at: " + fileDec.getPath());
+                            validPathDec = true;
+                            verifiedPathDec = fileDec.getPath();
+                        }
+                        else
+                        {
+                            throw new fileNotFound();
+                        }
+                    }
+            
+                /*
+                catching this error allows for the while loop to let the user
+                enter in more paths to have more chances without closing and
+                reopening the program
+                */
+                    catch(fileNotFound e)
+                    {
+                        System.out.println(e.getMessage());
+                        Scanner retryPath = new Scanner(System.in);
+                        filePathDec = retryPath.nextLine();
+                    }
+                }
+                
+                //decryption with new file path
+                des.DESDecrypt(new FileInputStream(verifiedPathDec), new FileOutputStream(desFileCreatorDec()));
+                
                 selection();
                 break;
             }
@@ -330,18 +389,18 @@ public class main {
                 selection();
                 break;
             }
-            case 2:
-            {
-                desDecrypt(new FileInputStream(verifiedPath));
-                selection();
-                break;
-            }
-            case 3:
-            {
-                //Call Triple DES Decryption Method here
-                //after call back to selection method
-                break;
-            }
+//            case 2:
+//            {
+//                desDecrypt(new FileInputStream(verifiedPath));
+//                selection();
+//                break;
+//            }
+//            case 3:
+//            {
+//                //Call Triple DES Decryption Method here
+//                //after call back to selection method
+//                break;
+//            }
         }
     }
     
@@ -530,23 +589,25 @@ public class main {
         }
         System.out.println("Made it out.");
     }
-    public static void desEncrypt(FileInputStream vPath)
-            throws FileNotFoundException, IOException
-    {
-        String fileContent = "";
-        desEncryption des = new desEncryption(fileContent);
-        
-        des.DESEncrypt(vPath, new FileOutputStream(desFileCreator()));
-    }
     
-    public static void desDecrypt(FileInputStream vPath)
-            throws FileNotFoundException, IOException
-    {
-        String fileContent = "";
-        desEncryption des = new desEncryption(fileContent);
-        
-        des.DESDecrypt(vPath, new FileOutputStream(desFileCreator()));
-    }
+    //1st attempt at a complete cycle for DES Encryption and Decryption
+//    public static void desEncrypt(FileInputStream vPath)
+//            throws FileNotFoundException, IOException
+//    {
+//        String fileContent = "";
+//        desEncryption des = new desEncryption(fileContent);
+//        
+//        des.DESEncrypt(vPath, new FileOutputStream(desFileCreator()));
+//    }
+//    
+//    public static void desDecrypt(FileInputStream vPath)
+//            throws FileNotFoundException, IOException
+//    {
+//        String fileContent = "";
+//        desEncryption des = new desEncryption(fileContent);
+//        
+//        des.DESDecrypt(vPath, new FileOutputStream(desFileCreator()));
+//    }
     
     public static String bufferedReader(String fileP){
         StringBuilder fileContent = new StringBuilder();
