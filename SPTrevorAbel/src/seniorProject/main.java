@@ -761,20 +761,6 @@ public class main {
             } 
         }
         System.out.println("Made it out.");
-        
-//        //Print out to a new file below
-//        Date date = new Date();
-//        long time = date.getTime();
-//        Timestamp ts = new Timestamp(time);
-//        PrintWriter encryptedOut;
-//        String fullPath = "caesarEncrypted.txt";
-//        
-//        encryptedOut = new PrintWriter(fullPath, "UTF-8");
-//        encryptedOut.println(encryptedText);
-//        encryptedOut.println();
-//        encryptedOut.println();
-//        encryptedOut.println("Created on: " + ts);
-//        encryptedOut.close();
     }
     
     public static void caesarDec(String fileContent)
