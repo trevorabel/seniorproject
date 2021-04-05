@@ -1015,14 +1015,14 @@ public class main {
         {
             System.out.println("----- Checking Key Now -----");
             System.out.println();
-//            try
-//            {
-//                TimeUnit.SECONDS.sleep(15);
-//            }
-//            catch(InterruptedException e)
-//            {
-//                Thread.currentThread().interrupt();
-//            }
+            try
+            {
+                TimeUnit.SECONDS.sleep(15);
+            }
+            catch(InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
             String str = "       Key is correct";
             System.out.println(str);
             System.out.println();
@@ -1032,14 +1032,14 @@ public class main {
             {
                 System.out.println("----- Checking Salt Now -----");
                 System.out.println();
-//                try
-//                {
-//                    TimeUnit.SECONDS.sleep(8);
-//                }
-//                catch(InterruptedException e)
-//                {
-//                    Thread.currentThread().interrupt();
-//                }
+                try
+                {
+                    TimeUnit.SECONDS.sleep(8);
+                }
+                catch(InterruptedException e)
+                {
+                    Thread.currentThread().interrupt();
+                }
                 String str1 = "       Salt is correct";
                 System.out.println(str1);
                 System.out.println();
@@ -1051,25 +1051,25 @@ public class main {
         {
             System.out.println("----- Checking Key Now -----");
             System.out.println();
-//            try
-//            {
-//                TimeUnit.SECONDS.sleep(5);
-//            }
-//            catch(InterruptedException e)
-//            {
-//                Thread.currentThread().interrupt();
-//            }
+            try
+            {
+                TimeUnit.SECONDS.sleep(5);
+            }
+            catch(InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
             
             System.out.println("----- Checking Salt Now -----");
             System.out.println();
-//            try
-//            {
-//                TimeUnit.SECONDS.sleep(5);
-//            }
-//            catch(InterruptedException e)
-//            {
-//                Thread.currentThread().interrupt();
-//            }
+            try
+            {
+                TimeUnit.SECONDS.sleep(5);
+            }
+            catch(InterruptedException e)
+            {
+                Thread.currentThread().interrupt();
+            }
             retVal = false;
         }
         return retVal;
