@@ -32,13 +32,8 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class aes256Encryption {
  
-    //global varriables for entire class
-    String passedFileContents;    
-    //global varriables for encryption here
+    String passedFileContents;
     
-    //global varriables for decryption here
-    
-    //blank constructor here
     public aes256Encryption()
     {
         
@@ -62,7 +57,8 @@ public class aes256Encryption {
         Cipher AESCipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         AESCipher.init(Cipher.ENCRYPT_MODE, genedKey, IV);
         
-        String encrypted = Base64.getEncoder().encodeToString(AESCipher.doFinal(fileContents.getBytes(StandardCharsets.UTF_8)));
+        String encrypted = 
+                Base64.getEncoder().encodeToString(AESCipher.doFinal(fileContents.getBytes(StandardCharsets.UTF_8)));
         
         return encrypted;
     }
