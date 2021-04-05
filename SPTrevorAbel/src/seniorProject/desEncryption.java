@@ -178,9 +178,6 @@ public class desEncryption {
                 System.out.println("Folder now exists.");
                 
                 //Print out to a new file below
-//                Date date = new Date();
-//                long time = date.getTime();
-//                Timestamp ts = new Timestamp(time);
                 String fullPath = "DESEnrypted.txt";
                 
                 newFPath = dir+fullPath;
