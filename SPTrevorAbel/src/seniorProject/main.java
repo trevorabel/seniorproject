@@ -636,7 +636,7 @@ public class main {
                 + "you would like to use down below:";
         String method1 = "1) Caesarean";
         String method2 = "2) DES";
-        String method3 = "3) Triple DES";
+        String method3 = "3) AES256";
         
         System.out.println();
         System.out.println();
